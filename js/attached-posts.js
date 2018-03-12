@@ -28,6 +28,8 @@ window.CMBAP = window.CMBAP || {};
 			.on( 'click', '.attached-posts-wrap .retrieved .add-remove', app._moveRowToAttached )
 			// Remove posts when the minus icon is clicked
 			.on( 'click', '.attached-posts-wrap .attached .add-remove', app._removeRowFromAttached )
+			// Remove posts when a new repeatable group is generated
+			.on( 'cmb2_add_row', app.removeAllFromAttached )
 			// Listen for search events
 			.on( 'keyup', '.attached-posts-wrap input.search', app._handleFilter )
 			.on( 'click', '.cmb-type-custom-attached-posts .cmb-td .cmb2-attached-posts-search-button', app._openSearch );
@@ -128,16 +130,15 @@ window.CMBAP = window.CMBAP || {};
 
 	// TB_COLLECTIVELY
 	// Remove items from our attached list when an Attached field is duplicated as part of a repeatable group
-	$( '.cmb2-wrap > .cmb2-metabox' ).on( 'cmb2_add_row', fresh_clone ); 
-	function fresh_clone() {
+	app.removeAllFromAttached = function() {
 		// target attached posts in the last (new) repeatable group
 		var $wrap = $(this).find(".cmb-repeatable-grouping").last().find(".attached-posts-wrap");
 	    // click all the minus buttons
 	    $wrap.find(".attached .add-remove").each(function(){
 	    	$(this).click();
-	    	//app._removeRowFromAttached( $(this) );
+	    	// app._removeRowFromAttached( $(this) );
 	   	});
-	}
+	};
 	// !TB_COLLECTIVELY
 
 
