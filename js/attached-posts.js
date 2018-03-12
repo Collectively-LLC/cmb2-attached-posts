@@ -125,6 +125,23 @@ window.CMBAP = window.CMBAP || {};
 		app.resetAttachedListItems( $wrap );
 	};
 
+
+	// TB_COLLECTIVELY
+	// Remove items from our attached list when an Attached field is duplicated as part of a repeatable group
+	$( '.cmb2-wrap > .cmb2-metabox' ).on( 'cmb2_add_row', fresh_clone ); 
+	function fresh_clone() {
+		// target attached posts in the last (new) repeatable group
+		var $wrap = $(this).find(".cmb-repeatable-grouping").last().find(".attached-posts-wrap");
+	    // click all the minus buttons
+	    $wrap.find(".attached .add-remove").each(function(){
+	    	$(this).click();
+	    	//app._removeRowFromAttached( $(this) );
+	   	});
+	}
+	// !TB_COLLECTIVELY
+
+
+
 	app.inputHasId = function( $wrap, itemID ) {
 		var $input  = app.getPostIdsInput( $wrap );
 		// Get array
